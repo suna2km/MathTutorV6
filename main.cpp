@@ -1,9 +1,9 @@
 /************************************************************************************************
-Program.......: Math Tutor V5
-Programmers...: Suna Aregay, Jesse McLaughlin
-Date..........: November 16th, 2025
+Program.......: Math Tutor V6
+Programmers...: Suna Aregay, Kage Peterson
+Date..........: December 4th, 2025
 Section.......: Section 3 – 12:00 pm
-GitHub Repo...: https://github.com/suna2km/Math_TutorV5
+GitHub Repo...: https://github.com/suna2km/MathTutorV6
 Description...: The purpose of this program is to:
                     - Display a fun welcome banner with funny math jokes
                     - Ask for the user's name and greet them
