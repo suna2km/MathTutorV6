@@ -15,6 +15,7 @@ Description...: The purpose of this program is to:
                     - Validates that all answers are numeric and if user enters a valid wish to continue
                     - Gives a summary report that displays the level, questions and attempts when the user quits the game
                     - Displays the summary totals including the average in the report
+                    - Saves progress to a file
 *************************************************************************************************/
 #include <cstdlib>   // used to add random numbers
 #include <ctime>     //to allow for the use of the time() function for random seeding
