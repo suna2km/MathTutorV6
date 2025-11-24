@@ -20,7 +20,7 @@ using namespace std;
 void DisplayGameIntro();
 string GetName();
 int GetUserAnswer();
-string AskToPlayAgain(string userName);
+string YesNoQuestion(string question);
 void DisplaySummaryReport(const vector<vector<int>> &allQuestions);
 vector<int> GenerateRandomQuestion(int mathLevel);
 bool GiveThreeAttempts(string userName, vector<int> &currentQuestion);

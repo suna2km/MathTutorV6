@@ -162,7 +162,7 @@ bool GiveThreeAttempts(string userName, vector<int> &currentQuestion) {
  * asks the user if they want to continue playing
  * returns the user input
  ***************************************************************/
-string AskToPlayAgain(string userName) {
+string YesNoQuestion(string question) {
     string userInput = "?";
     //ask whether the user wishes to continue
     while (true) {
