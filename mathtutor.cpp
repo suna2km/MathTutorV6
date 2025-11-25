@@ -9,19 +9,22 @@ Section.......: Section 3 – 12:00 pm
 GitHub Repo...: https://github.com/suna2km/Math_TutorV5
 Description...: This file contains all the functions that the main function calls.
 *************************************************************************************************/
-#include <cctype>   //for lowercasing yes/no input
-#include <cstdlib>  //for srand and rand
-#include <iomanip>  //for report column alignment
-#include <iostream> //for cout and cin
-#include <limits>   //for invalid numeric inputs
-#include <string>   //for string datatypes
-#include <vector>   //for storing the question in a 2D vector
+#include <cctype>    //for lowercasing yes/no input
+#include <cstdlib>   //for srand and rand
+#include <fstream>   //for writing to and reading from files
+#include <iomanip>   //for report column alignment
+#include <iostream>  //for cout and cin
+#include <limits>    //for invalid numeric inputs
+#include <stdexcept> //for error handling
+#include <string>    //for string datatypes
+#include <vector>    //for storing the question in a 2D vector
 
 using namespace std;
 
 //constant variables
 const int MAX_ATTEMPTS = 3; // gives user 3 attempts per question
 const int LEVEL_RANGE_CHANGE = 10; //for the amount to change when leveling up or down
+const string FILE_NAME = "mathtutor.txt";
 
 /*****************************************************
      * Display the program intro and jokes.
@@ -166,7 +169,7 @@ string YesNoQuestion(string question) {
     string userInput = "?";
     //ask whether the user wishes to continue
     while (true) {
-        cout << "\nDo you want to continue? (y= yes | n=no) ";
+        cout << endl << question ;
         getline(cin, userInput); // clears the new line from the input buffer
         for (int i = 0; i < userInput.size(); i++) //cast all characters to lower case
             userInput.at(i) = tolower(userInput.at(i));
@@ -350,6 +353,45 @@ void CheckForLevelChange(int &totalCorrect, int &totalIncorrect, int &mathLevel)
                 endl;
     }
 
-    return;
-
 } //end of CheckForLevelChange function
+
+/********************************************************************************
+ Function save progress onto a file
+ ********************************************************************************/
+void SaveCurrentGame(string UserName, const vector<vector<int>> &allQuestions) {
+    ofstream outFS;
+    string userInput = "?";
+
+    userInput = YesNoQuestion("Would you like to save your progress? (y=yes | n=no)");
+
+    if (userInput == "n" || userInput == "no") {
+        cout << "Progress was not saved";
+        return;
+    }
+    cout << "Please wait while we save your progress" << endl;
+    outFS.open(FILE_NAME);
+    if (!outFS.is_open()){
+        throw runtime_error("Could not open file " + FILE_NAME + " for writing");
+        return;
+    }
+    for (int i = 0; i < allQuestions.size(); i++) {
+        outFS << allQuestions.at(i).at(0) << " "
+        << allQuestions.at(i).at(1) << " "
+        << allQuestions.at(i).at(2) << " "
+        << allQuestions.at(i).at(3) << " "
+        << allQuestions.at(i).at(4) << " "
+        << allQuestions.at(i).at(5) << " " << endl;
+    }
+
+        outFS.close();
+
+        cout << "Successfully saved your progress!" << endl;
+        cout << "Added " << allQuestions.size() << " questions to " << FILE_NAME << endl;
+        return;
+    }
+
+
+
+
+
+

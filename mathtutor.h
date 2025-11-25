@@ -25,5 +25,6 @@ void DisplaySummaryReport(const vector<vector<int>> &allQuestions);
 vector<int> GenerateRandomQuestion(int mathLevel);
 bool GiveThreeAttempts(string userName, vector<int> &currentQuestion);
 void CheckForLevelChange (int &totalCorrect, int & totalIncorrect, int &mathLevel);
+void SaveCurrentGame(string userName, const vector<vector<int>>& allQuestions);
 
 #endif

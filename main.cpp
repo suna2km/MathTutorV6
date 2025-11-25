@@ -23,6 +23,8 @@ Description...: The purpose of this program is to:
 #include <windows.h> //to allow the console output to be set to UTF-8 for better ascii art support
 #include <vector>    //to store lists of questions and related data
 #include <string>    //for string datatypes
+#include <stdexcept> //for error handling
+#include <fstream>   //for writing and reading files
 
 #include "mathtutor.h" // Math Tutor Functions
 
@@ -76,17 +78,23 @@ int main() {
 
         getline(cin, userInput); // clears the new line from the input buffer
 
-        userInput = YesNoQuestion("Do you want another question");
+        userInput = YesNoQuestion("Do you want another question? (y=yes | n=no)");
 
     } while (userInput == "yes" || userInput == "y");
     //end of user's wish to continue with the program
 
     DisplaySummaryReport(allQuestions);
 
+    try {
+        SaveCurrentGame(userName, allQuestions);
+    } catch (runtime_error& e) {
+        cout << endl;
+        cout << e.what() << endl;
+    }
         //say goodbye to the user
         cout << "Thanks for playing the silly simple math tutor " << userName << "!" << endl;
 
-        //end program by returning 0
+    //end program by returning 0
         return 0;
 }
 
