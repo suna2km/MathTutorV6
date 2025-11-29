@@ -55,6 +55,13 @@ int main() {
     DisplayGameIntro();
     userName = GetName();
 
+    try {
+        mathLevel = LoadPreviousGame(userName, allQuestions);
+    } catch (runtime_error& e) {
+        cout << endl;
+        cout << e.what() << endl;
+    }
+
 
     // perform operations for creating and asking math questions once
     // continue operations while the user wishes to continue with the program
@@ -78,7 +85,7 @@ int main() {
 
         getline(cin, userInput); // clears the new line from the input buffer
 
-        userInput = YesNoQuestion("Do you want another question? (y=yes | n=no)");
+        userInput = YesNoQuestion( userName + ", Do you want to continue? (y=yes | n=no)");
 
     } while (userInput == "yes" || userInput == "y");
     //end of user's wish to continue with the program

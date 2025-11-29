@@ -3,10 +3,10 @@
 //
 /************************************************************************************************
 Program.......: Math Tutor V5
-Programmers...: Suna Aregay, Jesse McLaughlin
-Date..........: November 16th, 2025
+Programmers...: Suna Aregay, Kage Peterson
+Date..........: December 4th, 2025
 Section.......: Section 3 – 12:00 pm
-GitHub Repo...: https://github.com/suna2km/Math_TutorV5
+GitHub Repo...: https://github.com/suna2km/MathTutorV6
 Description...: This file contains all the functions that the main function calls.
 *************************************************************************************************/
 #include <cctype>    //for lowercasing yes/no input
@@ -70,6 +70,77 @@ string GetName() {
     return userName;
 
 } //end of GetName function
+
+/***************************************************************
+ * generate each random question
+ * receives mathLevel to set left and right number ranges
+ * returns current questions data as a int vector
+ * ************************************************************/
+vector<int> GenerateRandomQuestion(int mathLevel) {
+
+    //for the different math operations used
+    enum MathType { MT_ADDITION = 1, MT_SUBTRACTION = 2, MT_MULTIPLICATION = 3, MT_DIVISION = 4 };
+    MathType mathType = MT_ADDITION; //stores the random MathType enum generated for the current question
+
+    int correctAnswer = 0; //for storing the correct answer to each math question
+    char mathSymbol = '?'; //stores the math operation symbols
+    int userAnswer = 0; //for the answer to the question
+    int tempNumber = 0; //for swapping the left and right numbers to prevent negative answers
+    int leftNumber = 0; //stores the operand on the left side of the math symbol
+    int rightNumber = 0; //stores the operand on the right side of the math symbol
+    int totalCorrect = 0; //keeps track of how many questions the user got correct
+    int totalIncorrect = 0; //keeps track of how many question the user got incorrect
+    int currentRange = LEVEL_RANGE_CHANGE; //current range for random numbers
+
+    //generate a random number between 1 and the current level's range for right and left numbers
+    leftNumber = (rand() % currentRange) + 1;
+    rightNumber = (rand() % currentRange) + 1;
+
+    //generate a random number between 1-4
+    //use the random number generated to randomly select a math type from the MathType enumeration.
+    //Store the result cast to a MathType enumeration object
+    mathType = static_cast<MathType>(rand() % 4 + 1);
+
+    //set the math symbol based on the random MathType enumeration that was generated using a switch statement
+    switch (mathType) {
+        case MT_ADDITION:
+            mathSymbol = '+';
+            correctAnswer = leftNumber + rightNumber;
+            break;
+        case MT_SUBTRACTION:
+            mathSymbol = '-';
+            //larger number on the left to avoid negative numbers
+            if (leftNumber < rightNumber) {
+                tempNumber = leftNumber; //storing smaller num in temp
+                leftNumber = rightNumber; //put larger num in leftNumber
+                rightNumber = tempNumber; //storing smaller num in rightNumber
+            }
+            correctAnswer = leftNumber - rightNumber;
+            break;
+        case MT_MULTIPLICATION:
+            mathSymbol = '*';
+            correctAnswer = leftNumber * rightNumber;
+            break;
+        case MT_DIVISION:
+            mathSymbol = '/';
+            //To avoid fractional answers, treat correctAnswer as the intended result
+            correctAnswer = leftNumber;
+            leftNumber *= rightNumber; //to make leftNumber evenly divisible
+            break;
+        default: //error message
+            //displayed if math type is outside the valid values 1-4
+            cout << "Invalid math type: " << mathType << endl;
+            cout << "Please report this error to Suna Aregay or Ben Stearns" << endl;
+            cout << "Error code -1";
+            exit(-1);
+
+            // creates a new vector to record one question’s data
+            // this will be stored in a 2D vector for the summary report
+    } // end of switch
+
+    return {mathLevel, leftNumber, mathSymbol, rightNumber, correctAnswer};
+
+} //end of GenerateRandomQuestion function
 
 /***************************************************************
  * Loop until a numeric value is entered
@@ -161,12 +232,49 @@ bool GiveThreeAttempts(string userName, vector<int> &currentQuestion) {
 
 } //end of GiveThreeAttempts function
 
+/*********************************************************************
+ * Checks For level change and increments or decrements currentRange
+ *********************************************************************/
+void CheckForLevelChange(int &totalCorrect, int &totalIncorrect, int &mathLevel) {
+
+    //constant variable
+    const int LEVEL_RANGE_CHANGE = 10; //for the amount to change when leveling up or down
+    int currentRange = LEVEL_RANGE_CHANGE; //current range for random numbers
+
+    //check whether the user got 3 questions answered correctly
+    //if so, increase their math level, range of random numbers generated, and reset totalCorrect/Incorrect to 0
+    //output that they've leveled up and what their new level and range of numbers are
+    if (totalCorrect == 3) {
+        mathLevel++;
+        totalCorrect = 0;
+        totalIncorrect = 0;
+        currentRange = mathLevel * LEVEL_RANGE_CHANGE;
+        cout << "\tCongrats, you have leveled up!" << endl;
+        cout << "\tYour current level is now " << mathLevel << " with numbers ranging from 1-" << currentRange <<
+                endl;
+    }
+    //check whether user got 3 questions incorrect and their current mathLevel is greater than level 1
+    //if so, decrease their math level, range of random numbers generated, and reset totalCorrect/Incorrect to 0
+    //output that they've leveled down, their new math level and new range of random numbers
+    if (totalIncorrect == 3 && mathLevel > 1) {
+        mathLevel--;
+        totalCorrect = 0;
+        totalIncorrect = 0;
+        currentRange = mathLevel * LEVEL_RANGE_CHANGE;
+        cout << "\tSorry, you answered too many questions incorrectly and leveled down" << endl;
+        cout << "\tYour current level is now " << mathLevel << " with numbers ranging from 1-" << currentRange <<
+                endl;
+    }
+
+} //end of CheckForLevelChange function
+
 /***************************************************************
  * asks the user if they want to continue playing
  * returns the user input
  ***************************************************************/
 string YesNoQuestion(string question) {
     string userInput = "?";
+
     //ask whether the user wishes to continue
     while (true) {
         cout << endl << question ;
@@ -248,121 +356,14 @@ void DisplaySummaryReport(const vector<vector<int> > &allQuestions) {
 
 } //end of DisplaySummaryReport function
 
-/***************************************************************
- * generate each random question
- * receives mathLevel to set left and right number ranges
- * returns current questions data as a int vector
- * ************************************************************/
-vector<int> GenerateRandomQuestion(int mathLevel) {
-
-    //for the different math operations used
-    enum MathType { MT_ADDITION = 1, MT_SUBTRACTION = 2, MT_MULTIPLICATION = 3, MT_DIVISION = 4 };
-    MathType mathType = MT_ADDITION; //stores the random MathType enum generated for the current question
-
-    int correctAnswer = 0; //for storing the correct answer to each math question
-    char mathSymbol = '?'; //stores the math operation symbols
-    int userAnswer = 0; //for the answer to the question
-    int tempNumber = 0; //for swapping the left and right numbers to prevent negative answers
-    int leftNumber = 0; //stores the operand on the left side of the math symbol
-    int rightNumber = 0; //stores the operand on the right side of the math symbol
-    int totalCorrect = 0; //keeps track of how many questions the user got correct
-    int totalIncorrect = 0; //keeps track of how many question the user got incorrect
-    int currentRange = LEVEL_RANGE_CHANGE; //current range for random numbers
-
-    //generate a random number between 1 and the current level's range for right and left numbers
-    leftNumber = (rand() % currentRange) + 1;
-    rightNumber = (rand() % currentRange) + 1;
-
-    //generate a random number between 1-4
-    //use the random number generated to randomly select a math type from the MathType enumeration.
-    //Store the result cast to a MathType enumeration object
-    mathType = static_cast<MathType>(rand() % 4 + 1);
-
-    //set the math symbol based on the random MathType enumeration that was generated using a switch statement
-    switch (mathType) {
-        case MT_ADDITION:
-            mathSymbol = '+';
-            correctAnswer = leftNumber + rightNumber;
-            break;
-        case MT_SUBTRACTION:
-            mathSymbol = '-';
-            //larger number on the left to avoid negative numbers
-            if (leftNumber < rightNumber) {
-                tempNumber = leftNumber; //storing smaller num in temp
-                leftNumber = rightNumber; //put larger num in leftNumber
-                rightNumber = tempNumber; //storing smaller num in rightNumber
-            }
-            correctAnswer = leftNumber - rightNumber;
-            break;
-        case MT_MULTIPLICATION:
-            mathSymbol = '*';
-            correctAnswer = leftNumber * rightNumber;
-            break;
-        case MT_DIVISION:
-            mathSymbol = '/';
-            //To avoid fractional answers, treat correctAnswer as the intended result
-            correctAnswer = leftNumber;
-            leftNumber *= rightNumber; //to make leftNumber evenly divisible
-            break;
-        default: //error message
-            //displayed if math type is outside the valid values 1-4
-            cout << "Invalid math type: " << mathType << endl;
-            cout << "Please report this error to Suna Aregay or Ben Stearns" << endl;
-            cout << "Error code -1";
-            exit(-1);
-
-            // creates a new vector to record one question’s data
-            // this will be stored in a 2D vector for the summary report
-    } // end of switch
-
-    return {mathLevel, leftNumber, mathSymbol, rightNumber, correctAnswer};
-
-} //end of GenerateRandomQuestion function
-
-/*********************************************************************
- * Checks For level change and increments or decrements currentRange
- *********************************************************************/
-void CheckForLevelChange(int &totalCorrect, int &totalIncorrect, int &mathLevel) {
-
-    //constant variable
-    const int LEVEL_RANGE_CHANGE = 10; //for the amount to change when leveling up or down
-    int currentRange = LEVEL_RANGE_CHANGE; //current range for random numbers
-
-    //check whether the user got 3 questions answered correctly
-    //if so, increase their math level, range of random numbers generated, and reset totalCorrect/Incorrect to 0
-    //output that they've leveled up and what their new level and range of numbers are
-    if (totalCorrect == 3) {
-        mathLevel++;
-        totalCorrect = 0;
-        totalIncorrect = 0;
-        currentRange = mathLevel * LEVEL_RANGE_CHANGE;
-        cout << "\tCongrats, you have leveled up!" << endl;
-        cout << "\tYour current level is now " << mathLevel << " with numbers ranging from 1-" << currentRange <<
-                endl;
-    }
-    //check whether user got 3 questions incorrect and their current mathLevel is greater than level 1
-    //if so, decrease their math level, range of random numbers generated, and reset totalCorrect/Incorrect to 0
-    //output that they've leveled down, their new math level and new range of random numbers
-    if (totalIncorrect == 3 && mathLevel > 1) {
-        mathLevel--;
-        totalCorrect = 0;
-        totalIncorrect = 0;
-        currentRange = mathLevel * LEVEL_RANGE_CHANGE;
-        cout << "\tSorry, you answered too many questions incorrectly and leveled down" << endl;
-        cout << "\tYour current level is now " << mathLevel << " with numbers ranging from 1-" << currentRange <<
-                endl;
-    }
-
-} //end of CheckForLevelChange function
-
 /********************************************************************************
  Function save progress onto a file
- ********************************************************************************/
-void SaveCurrentGame(string UserName, const vector<vector<int>> &allQuestions) {
+********************************************************************************/
+void SaveCurrentGame(string userName, const vector<vector<int>> &allQuestions) {
     ofstream outFS;
     string userInput = "?";
 
-    userInput = YesNoQuestion("Would you like to save your progress? (y=yes | n=no)");
+    userInput = YesNoQuestion(userName + ", Would you like to save your progress? (y=yes | n=no)");
 
     if (userInput == "n" || userInput == "no") {
         cout << "Progress was not saved";
@@ -372,7 +373,6 @@ void SaveCurrentGame(string UserName, const vector<vector<int>> &allQuestions) {
     outFS.open(FILE_NAME);
     if (!outFS.is_open()){
         throw runtime_error("Could not open file " + FILE_NAME + " for writing");
-        return;
     }
     for (int i = 0; i < allQuestions.size(); i++) {
         outFS << allQuestions.at(i).at(0) << " "
@@ -389,9 +389,54 @@ void SaveCurrentGame(string UserName, const vector<vector<int>> &allQuestions) {
         cout << "Added " << allQuestions.size() << " questions to " << FILE_NAME << endl;
         return;
     }
+/***************************************************************
+ *Ask user if they want their previous game and load it
+ *recives users name and the 2D vector
+ *returns the math level
+***************************************************************/
+int LoadPreviousGame(string userName, vector<vector<int>> &allQuestions) {
 
+    string userInput = "?";
+    ifstream inFS;
+    int mathLevel = 0;
+    int leftNumber = 0;
+    int mathSymbol = 0;
+    int rightNumber = 0;
+    int correctAnswer = 0;
+    int numAttempts = 0;
 
+    inFS.open(FILE_NAME);
+    if (!inFS.is_open()) {
+        cout<<"Looks like you have never played the game before, " + userName<<endl;
+        cout<<"Good Luck!"<<endl;
+        return 1;
+    }
 
+    cout << "Looks like you've played this game before."<<endl;
+    userInput = YesNoQuestion( userName + ", Do you want to load your previous game? (y=yes | n=no)");
 
+    if (userInput == "n" || userInput == "no") {
+        cout << "Load Cancelled";
+        return 1;
+    }
+
+    cout<<"Loading previous game...please wait."<<endl;
+
+    while (inFS >> mathLevel >> leftNumber >> mathSymbol
+                >> rightNumber >> correctAnswer >> numAttempts){
+        allQuestions.push_back({ mathLevel, leftNumber, mathSymbol, rightNumber, correctAnswer, numAttempts });
+    }
+
+    if (!inFS.eof()) {
+        throw runtime_error("Something went wrong with reading the " + FILE_NAME + " file.");
+    }
+
+    inFS.close();
+
+    cout<<"Successfully loaded " << allQuestions.size() << " questions from " + FILE_NAME << endl;
+
+    return mathLevel;
+
+}//end of LoadPreviousGame function
 
 
