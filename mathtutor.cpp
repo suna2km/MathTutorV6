@@ -387,7 +387,17 @@ void SaveCurrentGame(string userName, const vector<vector<int>> &allQuestions) {
 
         cout << "Successfully saved your progress!" << endl;
         cout << "Added " << allQuestions.size() << " questions to " << FILE_NAME << endl;
-        return;
+
+    cout << R"(
+                                 /^ ^\
+                                / 0 0 \
+                                V\ ‿ /V
+                                 /   \
+                                 |    \
+                                 || (__V)" << endl;
+    cout <<"\t\t\t\t Goodbye!"<< endl;
+
+    return;
     }
 /***************************************************************
  *Ask user if they want their previous game and load it

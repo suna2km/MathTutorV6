@@ -61,6 +61,6 @@ Thanks for playing the silly simple math tutor suna!
 
 ## Maintainers
 [@suna2km](https://github.com/suna2km) Suna Aregay  
-[@JesseMcLaughlin](https://github.com/JesseMcLaughlin) Jesse McLaughlin
+[@KagePeterson(https://github.com/KagePeterson) Kage Peterson
 
 [Back to Top](#math-tutor-v1)
