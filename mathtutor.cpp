@@ -130,9 +130,9 @@ vector<int> GenerateRandomQuestion(int mathLevel) {
         default: //error message
             //displayed if math type is outside the valid values 1-4
             cout << "Invalid math type: " << mathType << endl;
-            cout << "Please report this error to Suna Aregay or Ben Stearns" << endl;
+            cout << "Please report this error to Suna Aregay or Kage Peterson" << endl;
             cout << "Error code -1";
-            exit(-1);
+            throw runtime_error("Invalid math type: " + mathType);
 
             // creates a new vector to record one question’s data
             // this will be stored in a 2D vector for the summary report

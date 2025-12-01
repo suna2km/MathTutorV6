@@ -66,11 +66,13 @@ int main() {
     // perform operations for creating and asking math questions once
     // continue operations while the user wishes to continue with the program
     do {
-
         vector<int> currentQuestion = GenerateRandomQuestion(mathLevel);
 
-       isCorrect = GiveThreeAttempts(userName, currentQuestion);
-
+        try {
+            isCorrect = GiveThreeAttempts(userName, currentQuestion);
+        } catch (runtime_error& e) {
+            cout << "Runtime error: " << e.what() << endl;
+        }
         //used for leveling up or down
         if (isCorrect) {
             totalCorrect ++;
