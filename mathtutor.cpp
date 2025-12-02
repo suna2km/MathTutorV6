@@ -357,7 +357,7 @@ void DisplaySummaryReport(const vector<vector<int> > &allQuestions) {
 } //end of DisplaySummaryReport function
 
 /********************************************************************************
- Function save progress onto a file
+ Function to save progress onto a file
 ********************************************************************************/
 void SaveCurrentGame(string userName, const vector<vector<int>> &allQuestions) {
     ofstream outFS;

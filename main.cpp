@@ -1,7 +1,7 @@
 /************************************************************************************************
 Program.......: Math Tutor V6
 Programmers...: Suna Aregay, Kage Peterson
-Date..........: December 4th, 2025
+Date..........: December 5th, 2025
 Section.......: Section 3 – 12:00 pm
 GitHub Repo...: https://github.com/suna2km/MathTutorV6
 Description...: The purpose of this program is to:
@@ -62,17 +62,18 @@ int main() {
         cout << e.what() << endl;
     }
 
-
     // perform operations for creating and asking math questions once
     // continue operations while the user wishes to continue with the program
     do {
         vector<int> currentQuestion = GenerateRandomQuestion(mathLevel);
 
+        //Try catch added for error handling after a random question is generated
         try {
             isCorrect = GiveThreeAttempts(userName, currentQuestion);
         } catch (runtime_error& e) {
             cout << "Runtime error: " << e.what() << endl;
         }
+
         //used for leveling up or down
         if (isCorrect) {
             totalCorrect ++;

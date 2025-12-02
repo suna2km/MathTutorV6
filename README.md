@@ -3,15 +3,15 @@ https://github.com/lifeparticle/Markdown-Cheatsheet
 https://youtu.be/eVGEea7adDM?si=cz1Fbqxr9VgioIEh
 -->
 
-# Math Tutor V5
+# Math Tutor V6
 
 <b>Table of Content</b>
 - [Summary](#summary)
-- [Console Output Example](#console-output-example)
+- [Console Output Example](#console-output-examples)
 - [Maintainers](#maintainers)
 
 ## Summary
-Welcome to Math Tutor Version 5!
+Welcome to Math Tutor Version 6!
 
 This is a fun program to test your math skills with some randomly generated math questions.
 Do super well and you can level up to harder problems!
@@ -29,8 +29,9 @@ Here's a list of what this program does:
 - Validates all answers are numeric and whether you give a valid response to continue playing (upper or lower case is fine!)
 - Gives a summary report that displays the level, questions and attempts when the user quits the game
 - Displays the summary totals including the average in the report
+- Allows the user to save and load their session using a file
 
-
+## Console Output Examples
 ```
 ``` Load Previous Game Output Example
 
@@ -145,6 +146,6 @@ Thanks for playing the silly simple math tutor suna!
 
 ## Maintainers
 [@suna2km](https://github.com/suna2km) Suna Aregay  
-[@KagePeterson(https://github.com/KagePeterson) Kage Peterson
+[@KagePeterson](https://github.com/KagePeterson) Kage Peterson
 
-[Back to Top](#math-tutor-v1)
+[Back to Top](#math-tutor-v6)
