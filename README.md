@@ -29,37 +29,19 @@ Here's a list of what this program does:
 - Validates all answers are numeric and whether you give a valid response to continue playing (upper or lower case is fine!)
 - Gives a summary report that displays the level, questions and attempts when the user quits the game
 - Displays the summary totals including the average in the report
-- Allows the user to save and load their session using a file
+- (new) Allows the user to save and load their session using a file
 
-## Console Output Examples
+## Loading Previous Game Console Output Examples
 ```
-``` Load Previous Game Output Example
-
-        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        ~___  ___      _   _       _____     _             ~
-        ~|  \/  |     | | | |     |_   _|   | |            ~
-        ~| .  . | __ _| |_| |__     | |_   _| |_ ___  _ __ ~
-        ~| |\/| |/ _` | __| '_ \    | | | | | __/ _ \| '__|~
-        ~| |  | | (_| | |_| | | |   | | |_| | || (_) | |   ~
-        ~\_|  |_/\__,_|\__|_| |_|   \_/\__,_|\__\___/|_|   ~
-        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-**************************************************************************************
-*   Welcome to the Silly Simple Math Tutor                                           *
-*   Fun Math facts:                                                                  *
-*       - Without Geometry, life is pointless                                        *
-*       - Why was the = sign so humble? Because it knew it wasn't > or < anyone else *
-*       - Parallel lines have so much in common. It's too bad they'll never meet     *
-**************************************************************************************
-What is your name?suna
-
 Welcome suna to the Silly Simple Math Tutor!
 Looks like you've played this game before.
 
 suna, Do you want to load your previous game? (y=yes | n=no)y
 
 Loading previous game...please wait.
-Successfully loaded 14 questions from mathtutor.txt
-[Level #3] suna, what is 8 + 3 =11
+Successfully loaded 5 questions from mathtutor.txt
+
+[Level #2] suna, what is 63 / 9 =7
 
         Congratulations! You answered correctly!
 
@@ -74,26 +56,17 @@ Successfully loaded 14 questions from mathtutor.txt
 suna, Do you want to continue? (y=yes | n=no)y
 
 
-[Level #3] suna, what is 8 + 10 =2
+[Level #2] suna, what is 45 / 5 =9
 
-        Sorry! You answered incorrectly...
-                You have 2 attempt(s) remaining
-[Level #3] suna, what is 8 + 10 =3
-
-        Sorry! You answered incorrectly...
-                You have 1 attempt(s) remaining
-[Level #3] suna, what is 8 + 10 =6
-
-        Sorry! You answered incorrectly...
-        The correct answer was 18.
+        Congratulations! You answered correctly!
 
                                  /^ ^\
                                 / 0 0 \
-                                V\ ⁀ /V
+                                V\ ‿ /V
                                  /   \
                                  |    \
                                  || (__V
-                                *sad puppy noises*
+                                *happy tail wags*
 
 suna, Do you want to continue? (y=yes | n=no)n
 
@@ -102,35 +75,51 @@ suna, Do you want to continue? (y=yes | n=no)n
 ========================================
 Level      Questions           Attempts
 =====  =================      ==========
-  1       5 * 7  =  35             1
-  1      10 * 2  =  20        Incorrect
-  1      32 / 4  =  8              3
-  1       6 - 5  =  1              1
-  1       7 * 4  =  28             1
-  1       2 / 2  =  1              1
-  2       6 - 3  =  3         Incorrect
-  2       6 - 4  =  2              1
-  2       7 - 4  =  3              1
-  2       3 + 6  =  9              1
-  2       3 + 7  =  10             1
-  2      27 / 9  =  3              1
-  3       6 + 3  =  9              2
-  3       5 + 9  =  14        Incorrect
-  3       8 + 3  =  11             1
-  3       8 + 10 =  18        Incorrect
+  1       1 + 7  =  8              1
+  1       8 / 2  =  4              1
+  1      48 / 6  =  8              1
+  2      10 - 2  =  8              1
+  2       3 + 6  =  9         Incorrect
+  2      63 / 9  =  7              1
+  2      45 / 5  =  9              1
 
-Total Questions: 16
-Total Correct  : 12
-Total Incorrect: 4
-Average Correct: 75%
+Total Questions: 7
+Total Correct  : 6
+Total Incorrect: 1
+Average Correct: 85%
 
+suna, Would you like to save your progress? (y=yes | n=no)
 ```
-``` Saving Progress Console Output Example
+## Saving Progress Console Output Example
+```
+suna, Do you want to continue? (y=yes | n=no)n
+
+========================================
+             Summary Report
+========================================
+Level      Questions           Attempts
+=====  =================      ==========
+  1       1 + 7  =  8              1
+  1       8 / 2  =  4              1
+  1      48 / 6  =  8              1
+  2      10 - 2  =  8              1
+  2       3 + 6  =  9         Incorrect
+  2      63 / 9  =  7              1
+  2      45 / 5  =  9              1
+
+Total Questions: 7
+Total Correct  : 6
+Total Incorrect: 1
+Average Correct: 85%
+
+suna, Would you like to save your progress? (y=yes | n=no)sure
+
+        Invalid input, please try again...
 suna, Would you like to save your progress? (y=yes | n=no)y
 
 Please wait while we save your progress
 Successfully saved your progress!
-Added 16 questions to mathtutor.txt
+Added 7 questions to mathtutor.txt
 
                                  /^ ^\
                                 / 0 0 \
@@ -141,6 +130,7 @@ Added 16 questions to mathtutor.txt
                                  Goodbye!
 Thanks for playing the silly simple math tutor suna!
 
+Process finished with exit code 0
 ```
 
 

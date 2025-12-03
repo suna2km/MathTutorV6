@@ -4,7 +4,7 @@
 /************************************************************************************************
 Program.......: Math Tutor V5
 Programmers...: Suna Aregay, Kage Peterson
-Date..........: December 4th, 2025
+Date..........: December 5th, 2025
 Section.......: Section 3 – 12:00 pm
 GitHub Repo...: https://github.com/suna2km/MathTutorV6
 Description...: This file contains all the prototypes for the functions that the main function calls.
