@@ -366,7 +366,7 @@ void SaveCurrentGame(string userName, const vector<vector<int>> &allQuestions) {
     userInput = YesNoQuestion(userName + ", Would you like to save your progress? (y=yes | n=no)");
 
     if (userInput == "n" || userInput == "no") {
-        cout << "Progress was not saved";
+        cout << "Progress was not saved."<<endl;;
         return;
     }
     cout << "Please wait while we save your progress" << endl;
@@ -426,7 +426,7 @@ int LoadPreviousGame(string userName, vector<vector<int>> &allQuestions) {
     userInput = YesNoQuestion( userName + ", Do you want to load your previous game? (y=yes | n=no)");
 
     if (userInput == "n" || userInput == "no") {
-        cout << "Load Cancelled";
+        cout << "Previous game not loaded."<<endl;
         return 1;
     }
 
